@@ -11,6 +11,8 @@ ovvero abbiano meno di 4 anni e peso maggiore alla media dei gatti.
 A fianco del codice identificativo, si stampi, separato da uno spazio, il tipo di cibo assunto dal gatto,
 ovvero crocchette, scatolette oppure tonno
 */
+#include <stdio.h>
+
 typedef struct cat{
     int codice;
     int anno;
