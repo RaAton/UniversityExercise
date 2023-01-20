@@ -1,0 +1,100 @@
+Esercizio Crediti
+
+Nel corso di Laurea di Informatica ci sono due tipi di esami: 
+quelli che si passano con i compitini più un orale, e quelli che si passano con una prova scritta e orale.
+Ogni studente deve avere 60 CFU per passare a secondo anno e 120 CFU per passare al terzo.
+---------------------------------------------------------------------------------------------------------------
+-   Interfaccia IExam
+
+    Interfaccia per un qualsiasi esame.
+            Metodi:
+                - int getgrade()  : restistuisce il voto finale per un esame
+
+
+-   Classe AbstractExam
+        Classe astratta che implementa l’interfaccia IExam (senza implementare il metodo getGrade() )
+
+            Attributi:
+                - credits: numero di CFU (int)
+                - examName: nome esame (String)
+                - oralGrade: voto all’orale (int) di un esame.
+            
+            Metodi:
+                - costruttore con 2 parametri: nome esame e numero di cfu
+                - getter e setter per oralGrade. Il setter controlla che il voto sia tra 0 e 30
+                        e lancia java.lang.IllegalArgumentException se non è nell’intervallo giusto.
+                - getter per examName e credits
+
+-   Classe WrittenAndOralExam
+        Classe che rappresenta un esame con scritto e orale, e estende AbstractExam.
+
+            Attributi:
+                - writtenGrade: rappresenta il voto dello scritto.
+            
+            Metodi:
+                - costruttore che prende come parametri il nome esame e il numero di CFU,
+                        li passa al costruttore della superclasse e inizializza il voto della prova orale settandolo a 0.
+                - getter e setter per writtenGrade. Il setter controlla che il voto sia tra 0 e 30
+                        e lancia java.lang.IllegalArgumentException se non è nell’intervallo giusto.
+                - getGrade : implementazione del metodo dell'interfaccia IExam,
+                        restituisce la media tra il voto dello scritto e dell’orale (media intera, usando Math.round).
+                        Per esempio per uno studente con voto 30 all'orale e 29 allo scritto, il voto finale è 30 (Math.round((29+30)/2)).
+
+-   Classe ContinuousEvaluationExam
+        Classe che rappresenta un esame con prova orale e compitini. Il numero di compitini è variabile.
+        Estende la classe AbstractExam.
+
+            Attributi:
+                - continuousEvaluationGrades: una lista di voti (lista di int) ottenuti alle prove in itinere.
+                        Può contenere un numero qualsiasi di voti.
+                        Utilizzate la struttura di dati che vi sembra più adatta per mantenere la lista.
+
+            Metodi:
+                - costruttore che prende come parametri il nome esame e il numero di CFU,
+                        li passa al costruttore della superclasse e inizializza la lista di esami ad una lista vuota.
+                - void addContinuousEvaluationGrade(int g) : aggiunge un voto delle prove in itinere.
+                        Deve controllare che il voto sia tra 0 e 30 e lancia IllegalArgumentException se non è nell’intervallo giusto.
+                - getGrade: implementazione del metodo dell'interfaccia IExam, calcola il voto finale facendo prima la media (intera, usando Math.round) dei voti in itinere,
+                        e poi la media (intera, usando Math.round) tra il risultato e il voto dell’orale.
+                        Per esempio, per uno studente con voti in itinere 29, 30, 30, 29 e voto orale 29 la media in itinere è 30 (Math.round((29+30+30+29)/4) e il voto finale è 30 (Math.round((30+29)/2)).
+                
+    -   Classe Student
+            Mantiene informazioni su uno studente della triennale. Implementa l’interfaccia java.lang.Comparable.
+            
+                Attributi:
+                    - name: nome e cognome in una stringa unica
+                    - studentNumber: matricola, intero
+                    - exams: una lista di esami (lista di AbstractExam) per lo studente. Scegliete la struttura di dati più adatta per memorizzare la lista
+                
+                Metodi:
+                    - costruttore Student(String, int) che prende nome e matricola, e inizializza la lista di esami ad una lista vuota.
+                    - getter per name e studentNumber
+                    - void addExam(AbstractExam) : aggiunge un esame alla lista di esami. Se un esame con lo stesso nome esiste viene rimosso prima di aggiungere il nuovo.
+                    - int getYear() : calcola l’anno di studi in cui lo studente si colloca: Per ogni esame calcola il voto finale, e lo considera superato solo se il voto è superiore a 17.
+                            In quel caso, considera i CFU dell’esame come superati. Se il numero totale di CFU superati è minore di 60 lo studente è al primo anno, se minore di 120 è al secondo, altrimenti al terzo.
+                    - double getECTSAverage() : calcola la media ECTS, pesando, per gli esami superati, il voto con il numero di CFU.
+                            Per esempio, per uno studente con 3 esami: “esame 1”, voto 19, CFU 6, “esame 2”, voto 15, CFU 6, “esame 3”, voto 30, CFU 12, la media ects si calcola come (19x6+30x12)/(6+12)
+                            (il secondo esame non si considera perché non superato). Se uno studente non ha esami superati, la media è 0.    
+                    - int compareTo(Student s) : implementazione del metodo dell’interfaccia Comparable. Implementa il confronto tra this e s, restituendo un numero negativo se this "minore" di s,
+                            positivo se this "maggiore" di s, 0 se this "uguale" a s. Uno studente è "minore" di un altro se ha la media ECTS minore. 
+
+-   Classe ComputerScienceDegree
+        Classe che gestisce una lista di studenti della triennale in Informatica.
+        
+            Attributi:
+                - students : lista di studenti. Utilizzate la struttura di dati più adatta per questo caso.
+
+            Metodi:
+                - costruttore senza parametri: inizializza la lista di studenti con una lista vuota
+                - void addStudent(Student s) : aggiunge lo studente alla lista di studenti.
+                - void load(String filename) : legge dal file testuale filename una lista di studenti con i loro voti, e li aggiunge alla lista di studenti già esistente.
+                        Lancia IOException in caso di errore di IO. Il file contiene uno studente per riga, in formato csv (esempio nel file students.csv):
+                        matricola,nome e cognome,nome esame1, numero CFU esame 1, voto orale esame 1, voto scritto (un valore) o voti in itinere (più di 1 valore separati da ‘;’) esame 1, nome esame2, numero CFU esame 2, voto orale esame 2, voto scritto o voti itinere esame 2, etc.
+                - int getYearlyStudents(int year) : restituisce il numero di studenti che, in base agli esami superati, sono all’anno di studi specificato da year.
+                        year deve essere un numero da 1 a 3, altrimenti il metodo lancia java.lang.IllegalArgumentException.
+                - Student getTopStudentPerYear(int year) : restituisce lo studente che è nell’anno di studi year e ha la media maggiore tra tutti gli studenti dello stesso anno.
+                        Se ci sono più studenti con la media massima, allora viene restituito quello con la matricola maggiore.
+                        year deve essere un numero da 1 a 3, altrimenti il metodo lancia java.lang.IllegalArgumentException.
+
+
+
