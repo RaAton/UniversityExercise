@@ -5,7 +5,7 @@ public class ContinuousEvaluationExam extends AbstractExam {
 
     public ContinuousEvaluationExam(String examName, int credits) {
         super(examName, credits);
-        continuousEvaluationGrades = new ArrayList<>();
+        continuousEvaluationGrades = new ArrayList<Integer>();
     }
 
     public void addContinuousEvaluationGrade(int g) {

@@ -79,7 +79,7 @@ public class ComputerScienceDegree{
         return count;
     }
 
-    public Student getTioStudentPerYear(int year){
+    public Student getTopStudentPerYear(int year){
         ArrayList<Student> studentsPerYear = new ArrayList<>();
         for(Student s : students){
             if(s.getYear() == year){
