@@ -13,8 +13,9 @@ public class WrittenAndOralExam extends AbstractExam {
     public void setWrittenGrade(int writtenGrade) {
         if (writtenGrade < 0 || writtenGrade > 30) {
             throw new IllegalArgumentException("Il voto deve essere tra 0 e 30");
-        }
+        }else{
         this.writtenGrade = writtenGrade;
+        }
     }
 
     @Override

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class ContinuousEvaluationExam extends AbstractExam {
-    public ArrayList<Integer> continuousEvaluationGrades;
+    private ArrayList<Integer> continuousEvaluationGrades;
 
     public ContinuousEvaluationExam(String examName, int credits) {
         super(examName, credits);
@@ -10,9 +10,10 @@ public class ContinuousEvaluationExam extends AbstractExam {
 
     public void addContinuousEvaluationGrade(int g) {
         if (g < 0 || g > 30) {
-            throw new IllegalArgumentException("Invalid grade. Must be between 0 and 30.");
-        }
+            throw new IllegalArgumentException("Il voto deve essere tra 0 e 30");
+        }else{
         continuousEvaluationGrades.add(g);
+        }
     }
 
     @Override
@@ -22,6 +23,6 @@ public class ContinuousEvaluationExam extends AbstractExam {
             totale += voto;
         }
         int itinere = Math.round(totale / continuousEvaluationGrades.size());
-        return Math.round((itinere + this.getOralGrade()) / 2);
+        return Math.round((itinere + getOralGrade()) / 2);
     }
 }

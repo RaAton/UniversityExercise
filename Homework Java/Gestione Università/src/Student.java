@@ -47,7 +47,9 @@ public class Student implements java.lang.Comparable<Student> {
 
     public double getECTSAverage(){
         int cfu = 0;
-        double media = 0;
+        double media = 0.0;
+        if(exams.isEmpty())
+            return 0.0;
         for (AbstractExam e : exams) {
             if (e.getGrade() > 17) {
                 cfu += e.getCredits();
