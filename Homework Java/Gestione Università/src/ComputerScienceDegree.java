@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -15,7 +16,7 @@ public class ComputerScienceDegree{
         students.add(s);
     }
 
-    public void load(String filename) throws IOException{
+    /*public void load(String filename) throws IOException{
         File file = new File(filename);
         if(!file.exists()){
             throw new IOException("File non trovato");
@@ -62,6 +63,58 @@ public class ComputerScienceDegree{
                 
             }
         
+        }
+        reader.close();
+    }
+    */
+
+    public void load(String filename) throws IOException{
+        File file = new File(filename);
+        if(!file.exists()){
+            throw new IOException("File non trovato");
+        }
+        FileReader leggofile = new FileReader(file);
+        BufferedReader reader = new BufferedReader(leggofile);
+        String s;
+        while(true){
+            s = reader.readLine();
+            if(s == null){
+                break;
+            }
+            ArrayList<String> spezzettato = new ArrayList<String>();
+            StringTokenizer tokenizer = new StringTokenizer(s, ",");
+            while(tokenizer.hasMoreTokens()){
+                spezzettato.add(tokenizer.nextToken());
+            }
+            int matricola = Integer.parseInt(spezzettato.get(0));
+            String nome = spezzettato.get(1);
+            Student studente = new Student(nome, matricola);
+            for(int i = 2; i < spezzettato.size(); i++){
+                String nomeesame = spezzettato.get(i);
+                i++;
+                int crediti = Integer.parseInt(spezzettato.get(i));
+                i++;
+                int orale = Integer.parseInt(spezzettato.get(i));
+                i++;
+                ArrayList<Integer> scritti = new ArrayList<Integer>();
+                StringTokenizer tokenizer2 = new StringTokenizer(spezzettato.get(i), ";");
+                while(tokenizer2.hasMoreTokens()){
+                    scritti.add(Integer.parseInt(tokenizer2.nextToken()));
+                }
+                if(scritti.size()==1){
+                    WrittenAndOralExam esame = new WrittenAndOralExam(nomeesame, crediti);
+                    esame.setOralGrade(orale);
+                    esame.setWrittenGrade(scritti.get(0));
+                    studente.addExam(esame);
+                }else{
+                    ContinuousEvaluationExam esame = new ContinuousEvaluationExam(nomeesame, crediti);
+                    esame.setOralGrade(orale);
+                    for(int voto : scritti){
+                        esame.addContinuousEvaluationGrade(voto);
+                    }
+                    studente.addExam(esame);
+                }
+            }
         }
         reader.close();
     }
