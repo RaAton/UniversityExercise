@@ -20,6 +20,6 @@ public class WrittenAndOralExam extends AbstractExam {
 
     @Override
     public int getGrade() {
-        return Math.round((getOralGrade() + writtenGrade) / 2);
+        return Math.round((getOralGrade() + this.writtenGrade) / 2);
     }
 }
