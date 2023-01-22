@@ -1,9 +1,3 @@
-Esercizio Crediti
-
-Nel corso di Laurea di Informatica ci sono due tipi di esami: 
-quelli che si passano con i compitini più un orale, e quelli che si passano con una prova scritta e orale.
-Ogni studente deve avere 60 CFU per passare a secondo anno e 120 CFU per passare al terzo.
----------------------------------------------------------------------------------------------------------------
 -   Interfaccia IExam
 
     Interfaccia per un qualsiasi esame.
