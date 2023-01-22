@@ -1,9 +1,9 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Scanner;
+
 
 public class ComputerScienceDegree{
     private ArrayList<Student> students;
@@ -15,20 +15,14 @@ public class ComputerScienceDegree{
     public void addStudent(Student s){
         students.add(s);
     }
-
-    public void load(String filename) throws IOException{
+   public void load(String filename) throws IOException{
         File file = new File(filename);
         if(!file.exists()){
             throw new IOException("File non trovato");
         }
-        FileReader aprofile = new FileReader(file);
-        BufferedReader reader = new BufferedReader(aprofile);
-        String s;
-        while(true){
-            s = reader.readLine();
-            if(s == null){
-                break;
-            }
+        Scanner scan = new Scanner(file);
+        while(scan.hasNextLine()){
+            String s = scan.nextLine();
             ArrayList<String> spezzettato = new ArrayList<String>();
             StringTokenizer tokenizer = new StringTokenizer(s, ",");
             while(tokenizer.hasMoreTokens()){
@@ -37,7 +31,7 @@ public class ComputerScienceDegree{
             int matricola = Integer.parseInt(spezzettato.get(0));
             String nome = spezzettato.get(1);
             Student studente = new Student(nome, matricola);
-            for(int i = 2; i < spezzettato.size(); i++){
+            for(int i = 2;i<spezzettato.size();i++){
                 String nomeesame = spezzettato.get(i);
                 i++;
                 int crediti = Integer.parseInt(spezzettato.get(i));
@@ -64,9 +58,9 @@ public class ComputerScienceDegree{
                 }
             }
             addStudent(studente);
+            }
+        scan.close();
         }
-        reader.close();
-    }
 
     public int getYearlyStudents(int year){
         int count = 0;
@@ -82,6 +76,9 @@ public class ComputerScienceDegree{
     }
 
     public Student getTopStudentPerYear(int year){
+        if(1 > year || year > 3){
+            throw new IllegalArgumentException("Anno non valido");
+        }
         ArrayList<Student> studentsPerYear = new ArrayList<>();
         for(Student s : students){
             if(s.getYear() == year){
