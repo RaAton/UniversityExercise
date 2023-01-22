@@ -22,7 +22,7 @@ public class ContinuousEvaluationExam extends AbstractExam {
         for (int voto : continuousEvaluationGrades) {
             totale += voto;
         }
-        int itinere = Math.round(totale / continuousEvaluationGrades.size());
+        float itinere = Math.round((float)totale / continuousEvaluationGrades.size());
         return Math.round((itinere + getOralGrade()) / 2);
     }
 }
