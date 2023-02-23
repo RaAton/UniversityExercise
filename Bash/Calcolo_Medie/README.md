@@ -6,11 +6,9 @@ Media Aritmetica: $\mu = \frac{1}{N} \sum\limits_{i=1}^{N} x_i$
 
 Deviazione Standard: $\sigma = \sqrt{\frac{1}{N} \sum\limits_{i=1}^{N} (x_i - \mu)^2}$
 
-
-
-
 dove:
-- X è l'insieme dei numeri	
+
+- X è l'insieme dei numeri
 - n è la cardinalità dell'insieme X
 
 Vogliamo tabulare l'output secondo il seguente schema:
@@ -20,4 +18,3 @@ Vogliamo tabulare l'output secondo il seguente schema:
 | #file | μ        | σ        | nomefile   |
 
 Le righe invece sono strutturate con il nome della directory e subito sotto tutti i file che sono al suo interno.
-
