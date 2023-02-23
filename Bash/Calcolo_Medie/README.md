@@ -2,9 +2,10 @@
 
 Ci viene data una directory con all'interno file .dat e altre directory simili ad essa. I file contengono numeri interi o decimali, uno per riga ed eventualmente separati da righe vuote. Per ogni file .dat bisogna calcolare media aritmetica e deviazione standard.
 
-Media Aritmetica: $\mu = \frac{\sum_{i=1}^{n}{x_{i}}}{N}$
+Media Aritmetica: $\mu = \frac{1}{N} \sum\limits_{i=1}^{N} x_i$
 
-Deviazione Standard: $\sigma = \sqrt{\frac{\sum_{i=1}^{n}{({x_{i}-\mu })}^2}{n}}$
+Deviazione Standard: $\sigma = \sqrt{\frac{1}{N} \sum\limits_{i=1}^{N} (x_i - \mu)^2}$
+
 
 
 
