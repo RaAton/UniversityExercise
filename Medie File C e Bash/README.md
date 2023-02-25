@@ -18,3 +18,5 @@ Vogliamo tabulare l'output secondo il seguente schema:
 | #file | μ        | σ        | nomefile   |
 
 Le righe invece sono strutturate con il nome della directory e subito sotto tutti i file che sono al suo interno.
+
+La soluzione è presentata sia in codice C che in Bash.
