@@ -19,4 +19,4 @@ Vogliamo tabulare l'output secondo il seguente schema:
 
 Le righe invece sono strutturate con il nome della directory e subito sotto tutti i file che sono al suo interno.
 
-La soluzione è presentata sia in codice C che in Bash.
+La soluzione è presentata sia in codice Bash, sia in codice C in modalità single-process, multi-process e multi-thread con socket.
